@@ -25,6 +25,7 @@ void* dequeue(LinkedList *list){
 }
 
 void* first(LinkedList *list){
+    
     return NULL;
 }
 
@@ -41,8 +42,8 @@ void* pop(LinkedList *list){
 }
 
 void* top(LinkedList *list){
-    if( first == |NULL){
-        Log_info("a lista esta vazia");
+    if( first == NULL){
+        log_info("a lista esta vazia");
         
     }
     return first;
