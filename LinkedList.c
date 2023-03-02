@@ -15,6 +15,41 @@ void init(LinkedList *list){
 
 }
 
+bool isEmpty(LinkedList *list){
+    log_info("Verificando se a lista esta vazia");
+    log_trace("isEmpty ->");
+    if(list==NULL){
+        log_error("parametro invalido");
+        log_debug("list: %p", list);
+        return true;
+    }
+
+    log_debug("list->size: %d", list->size);
+    log_trace("isEmpty <-");
+    if(list->size == 0){
+        return true;
+    } 
+    else{
+        return false;
+    }
+}
+
+void* first(LinkedList *list){
+    log_info("verificando o primeiro termo da lista:");
+    log_trace("first ->");
+    if(!isEmpty(list)){
+        log_error("A lista esta vazia !!");
+        log_debug("lista: %p", list);
+        log_trace("first <-");
+        return NULL;
+    }
+    else{
+        log_debug("valor contido na lista: %p", list->data);
+        log_trace("first <-");
+        return list->data;
+    }     
+}
+
 int enqueue(LinkedList *list, void *data){
     return 0;
 
@@ -24,10 +59,6 @@ void* dequeue(LinkedList *list){
     return NULL;
 }
 
-void* first(LinkedList *list){
-    
-    return NULL;
-}
 
 void* last(LinkedList *list){
     return NULL;
@@ -49,24 +80,7 @@ void* top(LinkedList *list){
     return first;
 }
 
-bool isEmpty(LinkedList *list){
-    log_info("Verificando se a lista esta vazia");
-    log_trace("isEmpty ->");
-    if(list==NULL){
-        log_error("parametro invalido");
-        log_debug("list: %p", list);
-        return true;
-    }
 
-    log_debug("list->size: %d", list->size);
-    log_trace("isEmpty <-");
-    if(list->size == 0){
-        return true;
-    } 
-    else{
-        return false;
-    }
-}
 
 int indexOf(LinkedList *list, void *data, compare equal){
     return 0;
