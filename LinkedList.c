@@ -6,30 +6,33 @@
 
 void init(LinkedList *list){
     log_info("inicializando a lista");
-    log_trace("init->");
+    log_trace("init <-");
     list->first = NULL;
     list->size= 0;
     log_debug("list->first: %p",list->first);
     log_debug("list->size: %d",list->size);
-    log_trace("init <-");
+    log_trace("init ->");
 
 }
 
 bool isEmpty(LinkedList *list){
     log_info("Verificando se a lista esta vazia");
-    log_trace("isEmpty ->");
-    if(list==NULL){
-        log_error("parametro invalido");
-        log_debug("list: %p", list);
+    log_trace("isEmpty <-");
+    if(list->first == NULL){
+        log_error("A lista esta Vazia");
+        log_debug("list: %p", list->first);
+        log_trace("isEmpty <-");
         return true;
     }
 
-    log_debug("list->size: %d", list->size);
-    log_trace("isEmpty <-");
     if(list->size == 0){
+        log_error("A lista esta Vazia");
+        log_debug("list->size: %d", list->size);
+        log_trace("isEmpty <-");
         return true;
     } 
     else{
+        log_trace("isEmpty <-");
         return false;
     }
 }
@@ -44,9 +47,9 @@ void* first(LinkedList *list){
         return NULL;
     }
     else{
-        log_debug("valor contido na lista: %p", list->data);
+        /*log_debug("valor contido na lista: %p", list->data);
         log_trace("first <-");
-        return list->data;
+        return list->data;*/
     }     
 }
 
