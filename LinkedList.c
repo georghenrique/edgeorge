@@ -20,7 +20,7 @@ bool isEmpty(LinkedList *list){
     log_trace("isEmpty <-");
     if(list->first == NULL){
         log_error("A lista esta Vazia");
-        log_debug("list: %p", list->first);
+        log_debug("list->first: %p", list->first);
         log_trace("isEmpty <-");
         return true;
     }
@@ -32,7 +32,7 @@ bool isEmpty(LinkedList *list){
         return true;
     } 
     else{
-        log_trace("isEmpty <-");
+        log_trace("isEmpty ->");
         return false;
     }
 }
@@ -54,6 +54,45 @@ void* first(LinkedList *list){
 }
 
 int enqueue(LinkedList *list, void *data){
+    log_info("Entrando na funçao enqueue");
+    log_trace("enqueue <-");
+    Node *newNode = (Node*)malloc(sizeof(Node));
+    log_info("criado o novo Nó");
+    
+    log_info("teste para ver se o no foi criado");
+        if(newNode == NULL){
+        log_error("**Erro ao criar o nó");
+        log_debug("newNode: %p", newNode);
+        return -1;
+    }
+
+    newNode->data = data;
+    newNode->next = NULL;
+    log_debug("newNode->data: %d", newNode->data);
+    log_debug("newNode->next: %p", newNode->next);
+
+    log_info("Teste para saber qual é o primeiro Nó");
+    if(isEmpty(list)){
+        log_info("a lista está vazia! adicionando o primeiro Nó");
+        list->first = newNode;
+        log_debug("list->first: %p", list->first);
+    }
+    
+    else{
+        log_info("a lista possui elementos, ache o ultimo e add o novo Nó");
+        Node *aux = list->first;
+        log_debug("Criaçao de uma variavel auxiliar: %p", *aux);
+        while(aux->next != NULL){
+            log_info("laço para achar o ultimo elemento da lista");
+            aux = aux->next;
+            log_debug("aux->next: %p", aux);
+        }
+        log_debug("ultimo Nó encontrado aux->next: %p", aux);
+        aux->next = newNode;  
+    }
+    list->size++;
+    log_debug("incrementaçao de list->size: %d", list->size);
+    log_trace("enqueue ->");
     return 0;
 
 }

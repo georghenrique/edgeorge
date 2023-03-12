@@ -14,5 +14,13 @@ int main(){
     init(&lista);
     log_info("chamada da funçao isEmpty");
     isEmpty(&lista);
+    log_info("chamada da funçao enqueue");
+    enqueue(&lista, 8);
+
+    log_info("chamada da funçao isEmpty");
+    isEmpty(&lista);
+
+    log_info("chamada da funçao enqueue");
+    enqueue(&lista, 25);
     return EXIT_SUCCESS;
 }
