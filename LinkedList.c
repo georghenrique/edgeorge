@@ -21,14 +21,14 @@ bool isEmpty(LinkedList *list){
     if(list->first == NULL){
         log_error("A lista esta Vazia");
         log_debug("list->first: %p", list->first);
-        log_trace("isEmpty <-");
+        log_trace("isEmpty ->");
         return true;
     }
 
     if(list->size == 0){
         log_error("A lista esta Vazia");
         log_debug("list->size: %d", list->size);
-        log_trace("isEmpty <-");
+        log_trace("isEmpty ->");
         return true;
     } 
     else{
@@ -38,19 +38,37 @@ bool isEmpty(LinkedList *list){
 }
 
 void* first(LinkedList *list){
-    log_info("verificando o primeiro termo da lista:");
+    log_info("verificando o primeiro dado da lista:");
     log_trace("first ->");
-    if(!isEmpty(list)){
+    if(isEmpty(list) == true){
         log_error("A lista esta vazia !!");
-        log_debug("lista: %p", list);
+        log_debug("lista: %p", list->first);
         log_trace("first <-");
         return NULL;
     }
     else{
-        /*log_debug("valor contido na lista: %p", list->data);
+        log_debug("valor contido na lista: %d", list->first->data);
         log_trace("first <-");
-        return list->data;*/
+        return list->first->data;
     }     
+}
+
+void* last(LinkedList *list){
+    log_info("verificando o ultimo elemento da lista");
+    log_trace("last <-");
+    void *data = NULL;
+    if(isEmpty(list) == false){
+        Node *aux = list->first;
+        log_debug("aux: %p", aux);
+        while(aux->next != NULL){
+            aux = aux->next;
+            data = aux->data;
+            log_debug("aux: %p", aux);
+            log_debug("data: %d", data);
+    }
+    }
+    log_debug("o ultimo elemento da lista: %d", data);
+    return data;
 }
 
 int enqueue(LinkedList *list, void *data){
@@ -102,9 +120,7 @@ void* dequeue(LinkedList *list){
 }
 
 
-void* last(LinkedList *list){
-    return NULL;
-}
+
 
 int push(LinkedList *list, void *data){
     return 0;
