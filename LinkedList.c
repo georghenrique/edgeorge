@@ -180,9 +180,9 @@ int push(LinkedList *list, void *data){
 }
 
 
-Node* getPos(LinkedList *list, int pos){
-    log_info("Entrando na funçao getPos");
-    log_trace("getPos <-");
+Node* getNodeByPos(LinkedList *list, int pos){
+    log_info("Entrando na funçao getNodeByPos");
+    log_trace("getNodeByPos <-");
         if(isEmpty(list)==true){
             log_error("**Erro a lista está vazia");
             return NULL;
@@ -201,13 +201,29 @@ Node* getPos(LinkedList *list, int pos){
         log_debug("variavel aux recebe o aux->next: %p", aux);
     }
     
-    log_debug("Dado do endereço localizad: %d", aux->data);
+    log_debug("Dado do endereço localizado: %d", aux->data);
     log_debug("endereço localizado: %p", aux);
+    log_trace("getNodeByPos ->");
 
     return aux;
 }
 
+void* getPos(LinkedList *list, int pos){
+    log_info("Entrando na funçao getPos");
+    log_trace("getPos <-");
+    Node *aux = getNodeByPos(list,pos);
+    log_debug("endereço contido em aux: %p", aux);
 
+    if (aux==NULL){
+        log_error("**Erro: Dado Ñ encontrado!");
+        log_debug("endereço contido em aux: %p", aux);
+        return NULL;
+    }
+    else
+        log_debug("Dado localizado: %d", aux->data);
+        log_trace("getPos ->");
+        return aux->data;
+}
 
 int indexOf(LinkedList *list, void *data, compare equal){
     
@@ -216,9 +232,7 @@ int indexOf(LinkedList *list, void *data, compare equal){
 
 
 
-Node* getNodeByPos(LinkedList *list, int pos){
-    return NULL;
-}
+
 
 int add(LinkedList *list, int pos, void *data){
     return 0;

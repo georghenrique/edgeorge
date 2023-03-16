@@ -55,14 +55,14 @@ int add(LinkedList *list, int pos, void *data);
 //adiciona vários elementos a partir de qualquer posição
 int addAll(LinkedList *listDest, int pos, LinkedList *listSource);
 
-//busca o elemento em uma posição específica
-Node* getPos(LinkedList *list, int pos);
+//busca o endereço de um elemento em uma posição específica
+Node* getNodeByPos(LinkedList *list, int pos);
 
 //descobre a posição de um elemento específico
 int indexOf(LinkedList *list, void *data, compare equal);
 
-
-Node* getNodeByPos(LinkedList *list, int pos);
+//?????????????????????????????????????????????????
+void* getPos(LinkedList *list, int pos);
 
 //remove o elemento de uma determinada posição
 void* removePos(LinkedList *list, int pos);
