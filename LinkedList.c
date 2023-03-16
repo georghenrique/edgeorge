@@ -180,16 +180,41 @@ int push(LinkedList *list, void *data){
 }
 
 
+Node* getPos(LinkedList *list, int pos){
+    log_info("Entrando na funçao getPos");
+    log_trace("getPos <-");
+        if(isEmpty(list)==true){
+            log_error("**Erro a lista está vazia");
+            return NULL;
+    }
+      if(pos>=list->size){
+        log_error("**Erro elemento está fora do alcance de size");
+        return NULL;
+    }
+
+    Node *aux = list->first;
+    log_debug("variavel aux recebe o endereço do  primeiro elemento da lista: %p", aux);
+  
+    log_info("inicio do laço for, para buscar a posiçao elemento na lista");
+    for (int count=0; aux!=NULL && count<pos; count++){
+        aux=aux->next;
+        log_debug("variavel aux recebe o aux->next: %p", aux);
+    }
+    
+    log_debug("Dado do endereço localizad: %d", aux->data);
+    log_debug("endereço localizado: %p", aux);
+
+    return aux;
+}
 
 
 
 int indexOf(LinkedList *list, void *data, compare equal){
+    
     return 0;
 }
 
-void* getPos(LinkedList *list, int pos){
-    return NULL;
-}
+
 
 Node* getNodeByPos(LinkedList *list, int pos){
     return NULL;

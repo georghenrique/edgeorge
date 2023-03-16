@@ -56,7 +56,7 @@ int add(LinkedList *list, int pos, void *data);
 int addAll(LinkedList *listDest, int pos, LinkedList *listSource);
 
 //busca o elemento em uma posição específica
-void* getPos(LinkedList *list, int pos);
+Node* getPos(LinkedList *list, int pos);
 
 //descobre a posição de um elemento específico
 int indexOf(LinkedList *list, void *data, compare equal);

@@ -29,6 +29,9 @@ int main(){
     log_info("chamada da funçao enqueue");
     enqueue(&lista, 8);
 
+    log_info("chamada da funçao getPos");
+    getPos(&lista, 0);//size se inicia apartir da POSIÇÃO ZERO
+
     log_info("chamada da funçao first");
     first(&lista);
 
