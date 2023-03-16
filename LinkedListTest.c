@@ -14,11 +14,17 @@ int main(){
     log_info("chamada da funçao init");
     init(&lista);
 
+    log_info("chamada da funçao last");//duvida aqui pq ficou zero
+    last(&lista);
+    
     log_info("chamada da funçao isEmpty");
     isEmpty(&lista);
 
     log_info("chamada da funçao first");
     first(&lista);
+
+    log_info("chamada da funçao dequeue");
+    dequeue(&lista);
 
     log_info("chamada da funçao enqueue");
     enqueue(&lista, 8);
@@ -36,6 +42,15 @@ int main(){
     first(&lista);
 
     log_info("chamada da funçao last");
+    last(&lista);
+
+    log_info("chamada da funçao dequeue");
+    dequeue(&lista);
+
+    log_info("chamada da funçao first");
+    first(&lista);
+    
+    log_info("chamada da funçao last");//duvida aqui pq ficou zero
     last(&lista);
     return EXIT_SUCCESS;
 }

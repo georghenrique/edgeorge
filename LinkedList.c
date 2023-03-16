@@ -41,7 +41,7 @@ void* first(LinkedList *list){
     log_info("verificando o primeiro dado da lista:");
     log_trace("first ->");
     if(isEmpty(list) == true){
-        log_error("A lista esta vazia !!");
+        log_error("ERRO** A lista esta vazia !!");
         log_debug("lista: %p", list->first);
         log_trace("first <-");
         return NULL;
@@ -66,9 +66,14 @@ void* last(LinkedList *list){
             log_debug("aux: %p", aux);
             log_debug("data: %d", data);
     }
-    }
     log_debug("o ultimo elemento da lista: %d", data);
     return data;
+    }
+    else{
+        log_error("ERRO** A lista esta vazia !!");
+        return NULL;
+
+    }
 }
 
 int enqueue(LinkedList *list, void *data){
@@ -116,27 +121,65 @@ int enqueue(LinkedList *list, void *data){
 }
 
 void* dequeue(LinkedList *list){
-    return NULL;
+    log_info("Entrando na funçao dequeue");
+    log_trace("dequeue <-");
+    //log_info("teste para ver se há elementos na lista");
+        if(isEmpty(list)==true){
+        log_error("**Erro aa lista está vazia");
+        return -1;
+    }
+    Node *trash = list->first;
+    list->first = list->first->next; 
+    void *data = trash->data;
+    log_debug("variável trash recebe o endereço do nó que será removido: %p", trash);
+    log_debug("variável list->first recebe list->first->next, fazendo o com que o segundo elemento se torne o primeiro %p", list->first);
+    log_debug("variável data recebe o dado do nó removido: %d", data);
+    
+    free(trash);
+    list->size--;
+    log_debug("variável trash é liberada com free: %p", trash);
+    log_debug("decrementaçao de list->size: %d", list->size);
+    log_trace("dequeue ->");
+    return data;
 }
 
+void* pop(LinkedList *list){
+    log_info("Entrando na funçao pop");
+    log_trace("pop <-");
+        if(isEmpty(list)==true){
+        log_error("**Erro aa lista está vazia");
+        return -1;
+    }
+    Node *trash = list->first;
+    list->first = list->first->next; 
+    void *data = trash->data;
+    log_debug("variável trash recebe o endereço do nó que será removido: %p", trash);
+    log_debug("variável list->first recebe list->first->next, fazendo o com que o segundo elemento se torne o primeiro %p", list->first);
+    log_debug("variável data recebe o dado do nó removido: %d", data);
+    
+    free(trash);
+    list->size--;
+    log_debug("variável trash é liberada com free: %p", trash);
+    log_debug("decrementaçao de list->size: %d", list->size);
+    log_trace("pop ->");
+    return data;
+}
 
+void* top(LinkedList *list){
+    /*log_info("Entrando na funçao top");
+    log_trace("top <-");
+    first(list);
+    log_trace("pop ->");*/
+    return NULL;
+
+}
 
 
 int push(LinkedList *list, void *data){
     return 0;
 }
 
-void* pop(LinkedList *list){
-    return NULL;
-}
 
-void* top(LinkedList *list){
-    if( first == NULL){
-        log_info("a lista esta vazia");
-        
-    }
-    return first;
-}
 
 
 
