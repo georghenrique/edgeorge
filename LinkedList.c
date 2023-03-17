@@ -82,7 +82,7 @@ int enqueue(LinkedList *list, void *data){
     Node *newNode = (Node*)malloc(sizeof(Node));
     log_info("criado o novo Nó");
     
-    log_info("teste para ver se o no foi criado");
+    log_info("teste para ver se o Nó foi criado");
         if(newNode == NULL){
         log_error("**Erro ao criar o nó");
         log_debug("newNode: %p", newNode);
@@ -264,6 +264,49 @@ void* getPos(LinkedList *list, int pos){
         return aux->data;
 }
 
+int add(LinkedList *list, int pos, void *data){
+    log_info("Entrando na funçao add");
+    log_trace("add <-");
+
+    log_info("teste: add no inicio da lista");
+    if (pos <= 0){
+        log_info("o dado será add ao inicio da lista, chamada da funçao PUSH");
+        return push(list,data);
+    }
+
+    Node *aux = getNodeByPos(list, (pos-1));
+    log_debug("aux recebe o endereço do nó anterior ao que será add: %p", aux);
+
+    log_info("teste para ver se o aux é valido");
+        if(aux == NULL){
+        log_error("**Erro: aux Ñ pode achar o Nó solicitado");
+        log_debug("aux: %p", aux);
+        return -2;
+    }
+    
+    Node *newNode = (Node*) malloc(sizeof(Node));
+    log_info("teste para ver se o Nó foi criado");
+        if(newNode == NULL){
+        log_error("**Erro ao criar o nó");
+        log_debug("newNode: %p", newNode);
+        return -1;
+    }
+
+    newNode->data = data;
+    newNode->next = NULL;
+    log_debug("newNode->data: %d", newNode->data);
+    log_debug("newNode->next: %p", newNode->next);
+    
+    newNode->next = aux->next;
+    aux->next = newNode;
+    list->size++;
+    log_debug("incrementaçao de list->size: %d", list->size);
+    log_trace("add ->");
+    return 1;
+    
+
+}
+
 int indexOf(LinkedList *list, void *data, compare equal){
     
     return 0;
@@ -273,9 +316,7 @@ int indexOf(LinkedList *list, void *data, compare equal){
 
 
 
-int add(LinkedList *list, int pos, void *data){
-    return 0;
-}
+
 
 int addAll(LinkedList *listDest, int pos, LinkedList *listSource){
     return 0;
