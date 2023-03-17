@@ -307,6 +307,36 @@ int add(LinkedList *list, int pos, void *data){
 
 }
 
+void* removePos(LinkedList *list, int pos){
+    if (isEmpty(list) == true || pos>=list->size){
+        log_error("**Erro: a lista está vazia ou a posiçao estorou size");
+        return NULL;
+    }
+    
+    Node *nodeRemove = NULL;
+    Node *aux = NULL;
+    log_debug("nodeRemove: %p", nodeRemove);
+    log_debug("auu: %p", aux);
+    
+    if (pos<=0){
+        log_info("O elemento a ser removido encontra-se na primeira posição da lista");
+        return dequeue(list);
+    }
+    else{
+        log_info("buscando o endereço do elelemto na lista");
+        aux = getNodeByPos(list, pos-1);
+    }
+
+    nodeRemove = aux->next; //identificamos o nó que será removido (que é o próximo)
+    aux->next = nodeRemove->next; //fazemos com que o nó anterior aponte para o nó seguinte ao nó que será removido
+    void* dataRemove = nodeRemove->data; //guardamos uma referência ao dado guardado no nó que será removido
+    free(nodeRemove); //removemos o nó da memória
+    list->size--; //decrementamos a quantidade de elementos da lista
+    return dataRemove; //retornamos apenas o dado
+
+
+}
+
 int indexOf(LinkedList *list, void *data, compare equal){
     
     return 0;
@@ -322,9 +352,7 @@ int addAll(LinkedList *listDest, int pos, LinkedList *listSource){
     return 0;
 }
 
-void* removePos(LinkedList *list, int pos){
-    return NULL;
-}
+
 
 bool removeData(LinkedList *list, void *data, compare equal){
     return 1;
