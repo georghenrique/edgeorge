@@ -176,7 +176,46 @@ void* top(LinkedList *list){
 
 
 int push(LinkedList *list, void *data){
-    return 0;
+    log_info("Entrando na funçao push");
+    log_trace("push <-");
+
+        if(isEmpty(list)==true){
+        log_error("**Erro aa lista está vazia");
+        return -1;
+    }
+    log_info("criado o novo Nó");
+    Node *newNode = (Node*) malloc(sizeof(Node));
+
+    log_info("teste para ver se o no foi criado");
+        if(newNode == NULL){
+        log_error("**Erro ao criar o nó");
+        log_debug("newNode: %p", newNode);
+        return -1;
+    }
+
+    newNode->data = data;
+    newNode->next = NULL;
+    log_debug("newNode->data: %d", newNode->data);
+    log_debug("newNode->next: %p", newNode->next);
+  
+    log_info("Teste para saber qual é o primeiro Nó");
+    if(isEmpty(list)){
+        log_info("a lista está vazia! adicionando o primeiro Nó");
+        list->first = newNode;
+        log_debug("list->first: %p", list->first);
+    }
+    else{
+        log_info("a lista possui elementos, add o novo elemento no topo da lista");
+        newNode->next = list->first;
+        list->first = newNode;
+        log_debug("o topo atual será o segundo da lista: %p", newNode->next);
+        log_debug("o novo nó será o topo: %p", list->first);
+    }
+  
+    list->size++;
+    log_debug("incrementaçao de list->size: %d", list->size);
+    log_trace("push ->");
+    return 1;
 }
 
 

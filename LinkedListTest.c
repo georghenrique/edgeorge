@@ -41,6 +41,9 @@ int main(){
     log_info("chamada da funçao isEmpty");
     isEmpty(&lista);
 
+    log_info("chamada da funçao push");
+    push(&lista, 833);
+
     log_info("chamada da funçao enqueue");
     enqueue(&lista, 25);
 
