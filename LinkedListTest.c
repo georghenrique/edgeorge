@@ -14,7 +14,7 @@ int main(){
     log_info("chamada da funçao init");
     init(&lista);
 
-    log_info("chamada da funçao last");//duvida aqui pq ficou zero
+    /*log_info("chamada da funçao last");//duvida aqui pq ficou zero
     last(&lista);
     
     log_info("chamada da funçao isEmpty");
@@ -59,7 +59,33 @@ int main(){
     log_info("chamada da funçao first");
     first(&lista);
     
+    removePos(&lista, 1);
+
     log_info("chamada da funçao last");//duvida aqui pq ficou zero
-    last(&lista);
+    last(&lista);*/
+
+    log_info("chamada da funçao enqueue");
+    enqueue(&lista, 8);
+
+    log_info("chamada da funçao enqueue");
+    enqueue(&lista, 25);
+
+    log_info("chamada da funçao first");
+    first(&lista);
+
+    log_info("chamada da funçao push");
+    push(&lista, 833);
+
+    log_info("chamada da funçao first");
+    first(&lista);
+
+    log_info("chamada da funçao removePos");
+    removePos(&lista, 0);
+
+
+    log_info("chamada da funçao removePos");
+    removePos(&lista, 2);
+
+
     return EXIT_SUCCESS;
 }
