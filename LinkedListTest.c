@@ -4,7 +4,12 @@
 #include "log.h"
 
 
+/*bool compara(void *data1, void *data2) {
+    int *d1 = (int*)data1;
+    int *d2 = (int*)data2;
 
+    return (*d1==*d2)?true:false;
+}*/
 
 int main(){
     log_set_level(LOG_TRACE);
@@ -85,6 +90,8 @@ int main(){
 
     log_info("chamada da funçao removePos");
     removePos(&lista, 2);
+    
+    //removeData(&lista, 833, compara);
 
 
     return EXIT_SUCCESS;

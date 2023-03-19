@@ -389,34 +389,76 @@ void* removePos(LinkedList *list, int pos){
     return dataRemove;
 }
 
-bool removeData(LinkedList *list, void *data){
+/*bool removeData(LinkedList *list, void *data){
+    log_info("Entrando na função removeData");
+    log_trace("removeData <-");
+
     Node *nodeRemove = NULL; //nó que será removido
-    if (compara(list->first->data, data)){
-        log_info("O dado a ser removido é o primeiro da lista");
-        nodeRemove = list->first; //nó a ser removido é o primeiro
+    log_debug("criação da variavel nodeRemove que vai receber o Nó a ser removido: %p", nodeRemove);
+    
+    if(compara(list->first->data, data)){
+        log_info("O dado a ser removido é o primeiro da lista!");
+        nodeRemove = list->first;
         list->first = list->first->next; //segundo nó passa a ser o first
-        free(nodeRemove->data); //remoção do dado
-        free(nodeRemove); //remoção do nó
+        log_debug("nodeRemove recebe o Nó que será removido: %p", nodeRemove);
+        log_debug("list->first aponta para o proximo Nó da lista: %p", list->first);
+
+        free(nodeRemove->data);
+        free(nodeRemove);
+        list->size--;
+        log_debug("remoção do dado: %d", nodeRemove->data);
+        log_debug("remoção do nó: %p", nodeRemove);
+
+        log_debug("decrementação de list->size: %d", list->size);
+        log_trace("removeData ->");
+        return true;
+    }
+
+    else{
+        log_info("O dado a ser removido é o primeiro da lista!");
+        Node *aux = list->first;
+        while(aux->next!=NULL && !compara(aux->next->data,data))
+            aux=aux->next; //avançando até encontrar o dado ou chegar ao final da lista
+        if (aux->next!=NULL) { //se encontrado o nó
+            Node *nodeRemove = aux->next; //nó a ser removido é o próximo
+            aux->next = nodeRemove->next; //removido da lista
+            free(nodeRemove->data); //removido o dado
+            free(nodeRemove); //removido o nó
+            list->size--;
+            return true;
+        }else{
+            return false; //nó não foi encontrado
+        }
+    }
+}*/
+
+bool removeData(LinkedList *list, void *data, compare equal) {
+    if (isEmpty(list)) return -1;
+
+    Node *nodeRemove = NULL;
+    if (equal(list->first->data,data)) {
+        nodeRemove = list->first;
+        list->first = list->first->next;
+        free(nodeRemove->data);
+        free(nodeRemove);
         list->size--;
         return true;
-}
+    } else {
+        Node *aux = list->first;
+        while(aux->next!=NULL && !equal(aux->next->data,data))
+            aux=aux->next;
 
-
-else {
-  Node *aux = list->first; //começaremos a navegar pelo primeiro nó
-  while(aux->next!=NULL && !equal(aux->next->data,data))
-    aux=aux->next; //avançando até encontrar o dado ou chegar ao final da lista
-  if (aux->next!=NULL) { //se encontrado o nó
-    Node *nodeRemove = aux->next; //nó a ser removido é o próximo
-    aux->next = nodeRemove->next; //removido da lista
-    free(nodeRemove->data); //removido o dado
-    free(nodeRemove); //removido o nó
-    list->size--;
-    return true;
-  } else {
-    return false; //nó não foi encontrado
-  }
-}
+        if (aux->next!=NULL) {
+            Node *nodeRemove = aux->next;
+            aux->next = nodeRemove->next;
+            free(nodeRemove->data);
+            free(nodeRemove);
+            list->size--;
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 int indexOf(LinkedList *list, void *data, compare equal){
