@@ -43,18 +43,19 @@ bool isEmpty(LinkedList *list){
     log_info("Verificando se a lista esta vazia");
     log_trace("isEmpty <-");
     if(list->first == NULL){
-        log_error("A lista esta Vazia");
+        log_error("A lista esta Vazia: list->first == NULL");
         log_debug("list->first: %p", list->first);
         log_trace("isEmpty ->");
         return true;
     }
 
     if(list->size == 0){
-        log_error("A lista esta Vazia");
+        log_error("A lista esta Vazia: list->size == 0");
         log_debug("list->size: %d", list->size);
         log_trace("isEmpty ->");
         return true;
     } 
+
     else{
         log_trace("isEmpty ->");
         return false;
@@ -64,6 +65,7 @@ bool isEmpty(LinkedList *list){
 void* first(LinkedList *list){
     log_info("verificando o primeiro dado da lista:");
     log_trace("first ->");
+
     if(isEmpty(list) == true){
         log_error("ERRO** A lista esta vazia !!");
         log_debug("lista: %p", list->first);
@@ -96,7 +98,6 @@ void* last(LinkedList *list){
     else{
         log_error("ERRO** A lista esta vazia !!");
         return NULL;
-
     }
 }
 
@@ -108,7 +109,7 @@ int enqueue(LinkedList *list, void *data){
     
     log_info("teste para ver se o Nó foi criado");
         if(newNode == NULL){
-        log_error("**Erro ao criar o nó");
+        log_error("**Erro: ao criar o Nó!");
         log_debug("newNode: %p", newNode);
         return -1;
     }
@@ -119,18 +120,17 @@ int enqueue(LinkedList *list, void *data){
     log_debug("newNode->next: %p", newNode->next);
 
     log_info("Teste para saber qual é o primeiro Nó");
-    if(isEmpty(list)){
+    if(isEmpty(list) == true){
         log_info("a lista está vazia! adicionando o primeiro Nó");
         list->first = newNode;
         log_debug("list->first: %p", list->first);
     }
-    
     else{
         log_info("a lista possui elementos, ache o ultimo e add o novo Nó");
         Node *aux = list->first;
         log_debug("Criaçao de uma variavel auxiliar: %p", *aux);
+        log_info("laço para achar o ultimo elemento da lista");
         while(aux->next != NULL){
-            log_info("laço para achar o ultimo elemento da lista");
             aux = aux->next;
             log_debug("aux->next: %p", aux);
         }
@@ -147,11 +147,12 @@ int enqueue(LinkedList *list, void *data){
 void* dequeue(LinkedList *list){
     log_info("Entrando na funçao dequeue");
     log_trace("dequeue <-");
-    //log_info("teste para ver se há elementos na lista");
-        if(isEmpty(list)==true){
-        log_error("**Erro aa lista está vazia");
+
+    if(isEmpty(list)==true){
+        log_error("**Erro: a lista está vazia!");
         return -1;
     }
+
     Node *trash = list->first;
     list->first = list->first->next; 
     void *data = trash->data;
@@ -171,7 +172,7 @@ void* pop(LinkedList *list){
     log_info("Entrando na funçao pop");
     log_trace("pop <-");
         if(isEmpty(list)==true){
-        log_error("**Erro aa lista está vazia");
+        log_error("**Erro: a lista está vazia!");
         return -1;
     }
     Node *trash = list->first;
@@ -202,11 +203,7 @@ void* top(LinkedList *list){
 int push(LinkedList *list, void *data){
     log_info("Entrando na funçao push");
     log_trace("push <-");
-
-        if(isEmpty(list)==true){
-        log_error("**Erro aa lista está vazia");
-        return -1;
-    }
+    
     log_info("criado o novo Nó");
     Node *newNode = (Node*) malloc(sizeof(Node));
 
