@@ -330,7 +330,7 @@ int addAll(LinkedList *listDest, int pos, LinkedList *listSource){
     log_trace("addll <-");
     
     log_info("Teste de conteudo das listas listDest e listSource: elas estão vazias?");
-    if (listDest==NULL || isEmpty(listDest)){//para que serve essa implementação?
+    if (listDest==NULL || isEmpty(listDest)){
         log_error("**Erro a lista listDest está vazia");
         log_debug("listDest: %p", listDest);
         return -1;
@@ -341,6 +341,41 @@ int addAll(LinkedList *listDest, int pos, LinkedList *listSource){
         log_debug("listSource: %p", listSource);
         return -2;
     }
+
+    Node *last = NULL;
+    log_info("inicio do laço que achara o ultino Nó da lista de origem");
+    for (last = listSource->first; last->next!=NULL; last=last->next){
+    log_debug("last: %p", last);
+    }
+    log_debug("variavel que guarda a ultima posição da lista de origem, last: %p", last);
+
+    if (pos == 0) {
+        log_info("a lista de ORIGEM sera add no inicio da lista de DESTINO");
+        last->next = listDest->first;
+        log_debug("O Ultimo NÓ da lista de ORIGEM (last->next) aponta para o inicio da lista de DESTINO: %p", last->next);
+        listDest->first = listSource->first;
+        log_debug("O inicio da lista de DESTINO (listDest->first) agora aponta para o primeiro Nó da lista de ORIGEM (listSource->first) : %p", listDest->first);
+    }
+    else {
+        log_debug("a lista de ORIGEM será add na posição %d da lista de DESTINO", pos);
+        Node *aux = getNodeByPos(listDest, (pos-1));
+        log_debug("aux recebe o endereço do nó anterior ao que será add : %p", aux);
+
+        log_info("teste para ver se o aux é valido");
+        if(aux == NULL){
+            log_error("**Erro: aux Ñ pode achar o Nó solicitado");
+            log_debug("aux: %p", aux);
+            return -3;
+        }
+        last->next = aux->next;
+        log_debug("O Ultimo NÓ da lista de ORIGEM (last->next) para a posição selecionada na lista de DESTINO (aux->next): %p", last->next);
+        aux->next = listSource->first;
+        log_debug("aux->next vai apontar para o inicio da lista de ORIGEM: %p", aux->next);
+    }
+    listDest->size += listSource->size;
+    log_debug("soma das quantidades de list->size: %d", listDest->size);
+    log_trace("addAll ->");
+    return listSource->size;
 }
 
 void* removePos(LinkedList *list, int pos){
