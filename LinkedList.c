@@ -93,10 +93,12 @@ void* last(LinkedList *list){
             log_debug("data: %d", data);
     }
     log_debug("o ultimo elemento da lista: %d", data);
+    log_trace("last <-");
     return data;
     }
     else{
         log_error("ERRO** A lista esta vazia !!");
+        log_trace("last <-");
         return NULL;
     }
 }
@@ -160,9 +162,9 @@ void* dequeue(LinkedList *list){
     log_debug("variável list->first recebe list->first->next, fazendo o com que o segundo elemento se torne o primeiro %p", list->first);
     log_debug("variável data recebe o dado do nó removido: %d", data);
     
+    log_debug("variável trash é liberada com free: %p", trash);
     free(trash);
     list->size--;
-    log_debug("variável trash é liberada com free: %p", trash);
     log_debug("decrementaçao de list->size: %d", list->size);
     log_trace("dequeue ->");
     return data;
@@ -242,11 +244,12 @@ int push(LinkedList *list, void *data){
 Node* getNodeByPos(LinkedList *list, int pos){
     log_info("Entrando na funçao getNodeByPos");
     log_trace("getNodeByPos <-");
-        if(isEmpty(list)==true){
-            log_error("**Erro a lista está vazia");
-            return NULL;
-    }
-      if(pos>=list->size){
+    
+    if(isEmpty(list)==true){
+        log_error("**Erro a lista está vazia");
+        return NULL;
+        }
+    if(pos>=list->size){
         log_error("**Erro elemento está fora do alcance de size");
         return NULL;
     }
