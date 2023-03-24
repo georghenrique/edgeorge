@@ -76,7 +76,7 @@ int main(){
     enqueue(&lista, 25);
 
     log_info("chamada da funçao first");
-    first(&lista);
+    top(&lista);
 
     log_info("chamada da funçao push");
     push(&lista, 833);

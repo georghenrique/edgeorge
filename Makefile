@@ -53,6 +53,8 @@ clean:
 	rm -f ponteiro_duplo
 	@echo Removendo o programa linkedlist
 	rm -f linkedlist
+	@echo Removendo o programa doublylinkedlist
+	rm -f doublylinkedlist
 	
 doublylinkedlist:
 	@echo

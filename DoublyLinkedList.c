@@ -3,6 +3,11 @@
 #include "DoublyLinkedList.h"
 #include "log.h"
 
+void impressao(void *data) {
+    int *dado = (int*)data;
+    printf("%d - ",*dado);
+}
+
 void init(DoublyLinkedList *list){
     log_info("inicializando a lista");
     log_trace("init <-");
@@ -22,11 +27,11 @@ void init(DoublyLinkedList *list){
 }
 
 void show(DoublyLinkedList *list, printNode print) {
-    log_info("entrando na função Show que exibe os dados contidos na lista");
-    log_info("Criando a variavel auxiliar");
-    log_trace("aux <-");
+    log_info("entrando na função Show");
+    log_trace("show <-");
+
     Node *aux = list->first->next;
-    log_debug("list->first->next: %p",aux);
+    log_debug("aux recebe o endereço do primriro Nó da lista: %p",aux);
     log_trace("while <-");
     while (aux!=list->first) {
         print(aux->data); //criar funcao 
@@ -43,8 +48,8 @@ int enqueue(DoublyLinkedList *list, void *data){
 
     log_info("criado o novo Nó");
     Node *newNode = (Node*)malloc(sizeof(Node));
-    log_info("teste para ver se o Nó foi criado");
         if(newNode == NULL){
+        log_info("teste para ver se o Nó foi criado");
         log_error("**Erro: ao criar o Nó!");
         log_debug("newNode: %p", newNode);
         return -1;
@@ -61,6 +66,9 @@ int enqueue(DoublyLinkedList *list, void *data){
     list->first->previous->next = newNode;
     list->first->previous = newNode;
     list->size++;
+    
+    log_debug("incrementaçao de list->size: %d", list->size);
+    log_trace("enqueue ->");
     return 1;
 }
 
@@ -156,11 +164,27 @@ void* pop(DoublyLinkedList *list) {
 }
 
 void* top(DoublyLinkedList *list) {
-    return first(list);
+    log_info("Entrando na funçao top");
+    log_trace("top <-");
+    void *data = first(list);
+    log_trace("top ->");
+    return data;
 }
 
 bool isEmpty(DoublyLinkedList *list) {
-    return (list->size==0);
+    log_info("Verificando se a lista esta vazia");
+    log_trace("isEmpty <-");
+    
+    if(list->size == 0){
+        log_error("ERRO** A lista esta Vazia: list->size == 0");
+        log_debug("list->size: %d", list->size);
+        log_trace("isEmpty ->");
+        return true;
+    } 
+    else{
+        log_trace("isEmpty ->");
+        return false;
+    }
 }
 
 Node* getNodeByPos(DoublyLinkedList *list,int pos) {
@@ -170,7 +194,7 @@ Node* getNodeByPos(DoublyLinkedList *list,int pos) {
     if(isEmpty(list)==true){
         log_error("**Erro a lista está vazia");
         return NULL;
-        }
+    }
 
     if(pos>=list->size){
         log_error("**Erro elemento está fora do alcance de size");
@@ -179,7 +203,7 @@ Node* getNodeByPos(DoublyLinkedList *list,int pos) {
     
     Node *aux = list->first->next;
     for (int count=0; (aux!=list->first && count<pos); count++){
-        aux=aux->next
+        aux=aux->next;
         log_debug("variavel aux recebe o aux->next: %p", aux);
     }
     log_debug("Dado do endereço localizado: %d", aux->data);
@@ -194,7 +218,16 @@ void* getPos(DoublyLinkedList *list,int pos) {
 
     Node *res = getNodeByPos(list,pos);
     
-    return (res==NULL)?NULL:res->data; //oq esta acontecendo aqui
+    if(res==NULL){
+        log_error("**Erro: Dado Ñ encontrado!");
+        log_debug("Endereço contido em aux: %p", res);
+        return NULL;
+    }
+    else{
+        log_debug("Dado localizado: %d", res->data);
+        log_trace("getPos ->");
+        return res->data;
+    }
 }
 
 int add(DoublyLinkedList *list, int pos, void *data) {
@@ -202,16 +235,85 @@ int add(DoublyLinkedList *list, int pos, void *data) {
     log_trace("add <-");
     
     Node *aux = getNodeByPos(list, pos);
-    if (aux==NULL) return -2;
+    log_debug("aux recebe o endereço do Nó: %p", aux);
+
+    log_info("teste para ver se o aux é valido");
+        if(aux == NULL){
+        log_error("**Erro: aux Ñ pode achar o Nó solicitado");
+        log_debug("aux: %p", aux);
+        return -2;
+    }
+
     Node *newNode = (Node*) malloc(sizeof(Node));
-    if (newNode==NULL) return -1;
+    log_info("teste para ver se o Nó foi criado");
+        if(newNode == NULL){
+        log_error("**Erro ao criar o nó");
+        log_debug("newNode: %p", newNode);
+        return -1;
+    }
+
     newNode->data = data;
     newNode->next = aux;
     newNode->previous = aux->previous;
     aux->previous->next = newNode;
     aux->previous = newNode;
     list->size++;
+    log_debug("incrementaçao de list->size: %d", list->size);
+    log_trace("add ->");
     return 1;
 }
 
+int addAll(DoublyLinkedList *listDest, int pos, DoublyLinkedList *listSource) {
+    log_info("Entrando na funçao addAll");
+    log_trace("addll <-");
+    
+    Node *aux = getNodeByPos(listDest, pos);
+    if (aux==NULL){
+        log_error("**Erro: Dado Ñ encontrado!");
+        log_debug("Endereço contido em aux: %p", aux);
+        return -1;
+    }
+
+    if (isEmpty(listSource)){
+        log_error("**Erro a lista listSource está vazia");
+        log_debug("listSource: %p", listSource);
+        return -2;
+    }
+
+    listSource->first->previous->next = aux;
+    listSource->first->next->previous = aux->previous;
+    aux->previous->next = listSource->first->next;
+    aux->previous = listSource->first->previous;
+    listDest->size+=listSource->size;
+    log_debug("soma das quantidades de list->size: %d", listDest->size);
+    log_trace("addAll ->");
+    return listSource->size;
+}
+
+void* removePos(DoublyLinkedList *list, int pos) {
+    log_info("Entrando na funçao remosvePos");
+    log_trace("remosvePos <-");
+    
+   if (isEmpty(list) || pos>=list->size){
+        log_error("**Erro: a lista está vazia ou a posiçao é invalida");
+        return NULL;
+    }
+    
+    log_info("buscando o endereço do elemento na lista");
+    Node *nodeRemove = getNodeByPos(list, pos);
+    log_debug("nodeRemove: %p", nodeRemove);
+
+    nodeRemove->previous->next = nodeRemove->next;
+    nodeRemove->next->previous = nodeRemove->previous;
+    void* dataRemove = nodeRemove->data;
+    
+    log_debug("removemos o nó da memória, nodeRemove: %p", nodeRemove);
+    free(nodeRemove);
+
+    list->size--;
+    log_debug("decrementamos a quantidade de elementos da lista, list->size: %d", list->size);
+    log_debug("dado do nó que foi removido: %d", dataRemove);
+    log_trace("removePos ->");
+    return dataRemove;
+}
 

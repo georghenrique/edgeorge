@@ -193,14 +193,13 @@ void* pop(LinkedList *list){
 }
 
 void* top(LinkedList *list){
-    /*log_info("Entrando na funçao top");
+    log_info("Entrando na funçao top");
     log_trace("top <-");
-    first(list);
-    log_trace("pop ->");*/
-    return NULL;
+    void *data = first(list);
+    log_trace("top ->");
+    return data;
 
 }
-
 
 int push(LinkedList *list, void *data){
     log_info("Entrando na funçao push");
@@ -274,11 +273,11 @@ void* getPos(LinkedList *list, int pos){
     log_info("Entrando na funçao getPos");
     log_trace("getPos <-");
     Node *aux = getNodeByPos(list,pos);
-    log_debug("endereço contido em aux: %p", aux);
+    log_debug("Endereço contido em aux: %p", aux);
 
     if (aux==NULL){
         log_error("**Erro: Dado Ñ encontrado!");
-        log_debug("endereço contido em aux: %p", aux);
+        log_debug("Endereço contido em aux: %p", aux);
         return NULL;
     }
     else
@@ -339,7 +338,7 @@ int addAll(LinkedList *listDest, int pos, LinkedList *listSource){
         return -1;
     }
 
-    if (listSource==NULL || isEmpty(listSource)){
+    if (listSource == NULL || isEmpty(listSource)){
         log_error("**Erro a lista listSource está vazia");
         log_debug("listSource: %p", listSource);
         return -2;
@@ -414,8 +413,8 @@ void* removePos(LinkedList *list, int pos){
     void* dataRemove = nodeRemove->data;
     log_debug("guardamos uma referência ao dado guardado no nó que será removido: %d", dataRemove);
     
-    free(nodeRemove); 
     log_debug("removemos o nó da memória, nodeRemove: %p", nodeRemove);
+    free(nodeRemove); 
     
     list->size--;
     log_debug("decrementamos a quantidade de elementos da lista, list->size: %d", list->size);
