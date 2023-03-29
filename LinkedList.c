@@ -4,30 +4,6 @@
 #include "log.h"
 
 
-bool compara(void *data1, void *data2) {
-    log_info("Comparando se os dados são iguais:");
-    log_trace("compara <-");
-
-    log_info("Convertendo os dados fornecidos em ponteiros int:");
-    int *d1 = (int*)data1;
-    int *d2 = (int*)data2;
-    log_debug("dado1: %p", d1);
-    log_debug("dado2: %p", d2);
-
-    if(*d1 == *d2){
-        log_info("Os dados são iguais:");
-        log_debug("dado1: %d \n dado2: %d", d1, d2);
-        log_trace("compara ->");    
-        return true;
-    }
-    else{
-        log_error("**ERRO: os dados são diferentes!");
-        log_debug("dado1: %d \n dado2: %d", d1, d2);
-        log_trace("compara ->");    
-        return false;
-    }
-}
-
 void init(LinkedList *list){
     log_info("inicializando a lista");
     log_trace("init <-");
@@ -152,6 +128,7 @@ void* dequeue(LinkedList *list){
 
     if(isEmpty(list)==true){
         log_error("**Erro: a lista está vazia!");
+        log_trace("dequeue <-");
         return -1;
     }
 
@@ -467,29 +444,61 @@ void* removePos(LinkedList *list, int pos){
 }*/
 
 bool removeData(LinkedList *list, void *data, compare equal) {
-    if (isEmpty(list)) return -1;
+    log_info("Entrando na funçao removeData");
+    log_trace("removeData <-");
+
+    if(isEmpty(list)==true){
+        log_error("**Erro: a lista está vazia!");
+        log_trace("removeData <-");
+        return -1;
+    }
 
     Node *nodeRemove = NULL;
-    if (equal(list->first->data,data)) {
+    if (equal(list->first->data,data)==true) {
+        log_info("O dado está na primeira posição da lista:");
         nodeRemove = list->first;
         list->first = list->first->next;
+        log_debug("nodeRemove recebe o endereço do primeiro Nó da lista: %p", nodeRemove);
+        log_debug("variável list->first recebe list->first->next, fazendo o com que o segundo elemento se torne o primeiro %p", list->first);
+
         free(nodeRemove->data);
         free(nodeRemove);
+        log_debug("free em nodeRemove->data: %p", nodeRemove->data);
+        log_debug("free em nodeRemove: %p", nodeRemove);
         list->size--;
+        log_debug("decrementaçao de list->size: %d", list->size);
+        log_trace("removeData <-");
         return true;
-    } else {
+    }
+    else {
+        log_info("Procurando a posição do dado na lista");
         Node *aux = list->first;
-        while(aux->next!=NULL && !equal(aux->next->data,data))
+        log_debug("aux recebe o endereço do primeiro Nó da lista: %p", aux);
+        while(aux->next!=NULL && equal(aux->next->data,data)==false){
+            log_trace("while <-");
             aux=aux->next;
-
-        if (aux->next!=NULL) {
+            log_debug("aux recebe o endereço do proximo Nó da lista: %p", aux);
+        }
+        log_trace("while ->");
+        
+        if (aux->next!=NULL){
+            
             Node *nodeRemove = aux->next;
             aux->next = nodeRemove->next;
+            log_debug("nodeRemove recebe o endereço aux->next: %p", nodeRemove);
+            log_debug("aux->next recebe o endereço nodeRemove->next: %p", aux->next);
             free(nodeRemove->data);
             free(nodeRemove);
+            log_debug("free em nodeRemove->data: %p", nodeRemove->data);
+            log_debug("free em nodeRemove: %p", nodeRemove);
             list->size--;
+            log_debug("decrementaçao de list->size: %d", list->size);
+            log_trace("removeData <-");
             return true;
-        } else {
+        }
+        else{
+            log_error("**Erro: Ñ foi posssivel remover o dado");
+            log_trace("removeData <-");
             return false;
         }
     }

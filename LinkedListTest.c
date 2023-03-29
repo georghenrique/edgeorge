@@ -3,6 +3,29 @@
 #include "LinkedList.h"
 #include "log.h"
 
+bool compara(void *data1, void *data2) {
+    log_info("Comparando se os dados são iguais:");
+    log_trace("compara <-");
+
+    log_info("Convertendo os dados fornecidos em ponteiros int:");
+    int *d1 = (int*)data1;
+    int *d2 = (int*)data2;
+    log_debug("dado1: %p", d1);
+    log_debug("dado2: %p", d2);
+
+    if(*d1 == *d2){
+        log_info("Os dados são iguais:");
+        log_debug("dado1: %d \n dado2: %d", d1, d2);
+        log_trace("compara ->");    
+        return true;
+    }
+    else{
+        log_error("**ERRO: os dados são diferentes!");
+        log_debug("dado1: %d \n dado2: %d", d1, d2);
+        log_trace("compara ->");    
+        return false;
+    }
+}
 
 /*bool compara(void *data1, void *data2) {
     int *d1 = (int*)data1;
