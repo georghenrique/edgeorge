@@ -27,12 +27,6 @@ bool compara(void *data1, void *data2) {
     }
 }
 
-/*bool compara(void *data1, void *data2) {
-    int *d1 = (int*)data1;
-    int *d2 = (int*)data2;
-
-    return (*d1==*d2)?true:false;
-}*/
 
 int main(){
     log_set_level(LOG_TRACE);
@@ -107,13 +101,15 @@ int main(){
     log_info("chamada da funçao first");
     first(&lista);
 
-   
+    indexOf(&lista, 833, compara);
+
     
     removeData(&lista, 13, compara);
 
     removeData(&lista, 25, compara);
 
-
+    indexOf(&lista, 25, compara);
+    
 
     return EXIT_SUCCESS;
 }

@@ -222,11 +222,12 @@ Node* getNodeByPos(LinkedList *list, int pos){
     log_trace("getNodeByPos <-");
     
     if(isEmpty(list)==true){
-        log_error("**Erro a lista está vazia");
+        log_error("**Erro! a lista está vazia");
         return NULL;
-        }
+    }
+
     if(pos>=list->size){
-        log_error("**Erro elemento está fora do alcance de size");
+        log_error("**Erro! elemento está fora do alcance de size");
         return NULL;
     }
 
@@ -267,7 +268,7 @@ int add(LinkedList *list, int pos, void *data){
     log_info("Entrando na funçao add");
     log_trace("add <-");
 
-    log_info("teste: add no inicio da lista");
+    log_info("**TESTE: add no inicio da lista?");
     if (pos <= 0){
         log_info("o dado será add ao inicio da lista, chamada da funçao PUSH");
         return push(list,data);
@@ -277,7 +278,7 @@ int add(LinkedList *list, int pos, void *data){
     log_debug("aux recebe o endereço do nó anterior ao que será add: %p", aux);
 
     log_info("teste para ver se o aux é valido");
-        if(aux == NULL){
+    if(aux == NULL){
         log_error("**Erro: aux Ñ pode achar o Nó solicitado");
         log_debug("aux: %p", aux);
         return -2;
@@ -285,7 +286,7 @@ int add(LinkedList *list, int pos, void *data){
     
     Node *newNode = (Node*) malloc(sizeof(Node));
     log_info("teste para ver se o Nó foi criado");
-        if(newNode == NULL){
+    if(newNode == NULL){
         log_error("**Erro ao criar o nó");
         log_debug("newNode: %p", newNode);
         return -1;
@@ -363,6 +364,7 @@ void* removePos(LinkedList *list, int pos){
 
     if (isEmpty(list) == true || pos>=list->size){
         log_error("**Erro: a lista está vazia ou a posiçao é invalida");
+        log_trace("remosvePos ->");
         return NULL;
     }
     
@@ -468,8 +470,39 @@ bool removeData(LinkedList *list, void *data, compare equal) {
 }
 
 int indexOf(LinkedList *list, void *data, compare equal){
+    log_info("Entrando na funçao indexOf");
+    log_trace("indexOf <-");
+
+    if (isEmpty(list)==true){
+        log_error("**Erro: a lista está vazia!");
+        log_trace("indexOf ->");
+        return -1;
+    }
+
+    int count=0;
+    Node *aux = list->first;
+    log_debug("VAR contadora é criada: %d", count);
+    log_debug("aux recebe o endereço do primeiro Nó da lista: %p", aux);
+
+    log_trace("while <-");
+    while(aux!=NULL && !equal(aux->data,data)){
+        aux=aux->next;
+        count++;
+        log_debug("aux recebe o endereço do proximo Nó da lista: %p", aux);
+        log_debug("count é incrementado: %d", count);
+
+    }
+    log_trace("while ->");
+
+    if(aux==NULL){
+        log_error("**ERRO! posição do dado Ñ localizada");
+        return -1;
+    }
+    else{
+        log_debug("O dado se encontra na posição %d da lista", count);
+        return count;
+    }
     
-    return 0;
 }
 
 
