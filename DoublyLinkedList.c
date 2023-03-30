@@ -26,22 +26,6 @@ void init(DoublyLinkedList *list){
     log_trace("init <-");
 }
 
-void show(DoublyLinkedList *list, printNode print) {
-    log_info("entrando na função Show");
-    log_trace("show <-");
-
-    Node *aux = list->first->next;
-    log_debug("aux recebe o endereço do primriro Nó da lista: %p",aux);
-    log_trace("while <-");
-    while (aux!=list->first) {
-        print(aux->data); //criar funcao 
-        aux=aux->next;
-        log_debug("aux->list->next: %p",aux);
-    }
-    log_debug("aux: %p",aux);
-    log_trace("aux ->");
-}
-
 int enqueue(DoublyLinkedList *list, void *data){
     log_info("Entrando na funçao enqueue");
     log_trace("enqueue <-");
@@ -315,5 +299,86 @@ void* removePos(DoublyLinkedList *list, int pos) {
     log_debug("dado do nó que foi removido: %d", dataRemove);
     log_trace("removePos ->");
     return dataRemove;
+}
+
+int removeData(DoublyLinkedList *list, void *data, compare equal) {
+    log_info("Entrando na funçao removeData");
+    log_trace("removeData <-");
+
+    if(isEmpty(list)==true){
+        log_error("**Erro: a lista está vazia!");
+        log_trace("removeData ->");
+        return -1;
+    }
+
+    Node *nodeRemove = list->first->next;
+
+    log_trace("while <-");
+    while(nodeRemove!=list->first && !equal(nodeRemove->data,data)){
+        nodeRemove=nodeRemove->next;
+
+    }
+    log_trace("while ->");
+
+    if (nodeRemove!=list->first) {
+        nodeRemove->previous->next = nodeRemove->next;
+        nodeRemove->next->previous = nodeRemove->previous;
+        free(nodeRemove->data);
+        free(nodeRemove);
+        list->size--;
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+int indexOf(DoublyLinkedList *list,void *data,compare equal) {
+    log_info("Entrando na funçao indexOf");
+    log_trace("indexOf <-");
+
+    if (isEmpty(list)==true){
+        log_error("**Erro: a lista está vazia!");
+        log_trace("indexOf ->");
+        return -1;
+    }
+    
+    int count=0;
+    Node *aux = list->first->next;
+    log_debug("VAR contadora é criada: %d", count);
+    log_debug("aux recebe o endereço do primeiro Nó da lista: %p", aux);
+
+    log_trace("while <-");
+    while(aux!=list->first && !equal(aux->data,data)) {
+        aux=aux->next;
+        count++;
+        log_debug("aux recebe o endereço do proximo Nó da lista: %p", aux);
+        log_debug("count é incrementado: %d", count);
+    }
+    log_trace("while ->");
+    
+    if(aux==list->first){
+        log_error("**ERRO! posição do dado Ñ localizada");
+        return -1;
+    }
+    else{
+        log_debug("O dado se encontra na posição %d da lista", count);
+        return count;
+    }
+}
+
+void show(DoublyLinkedList *list, printNode print) {
+    log_info("entrando na função Show");
+    log_trace("show <-");
+
+    Node *aux = list->first->next;
+    log_debug("aux recebe o endereço do primriro Nó da lista: %p",aux);
+    log_trace("while <-");
+    while (aux!=list->first) {
+        print(aux->data); //criar funcao 
+        aux=aux->next;
+        log_debug("aux->list->next: %p",aux);
+    }
+    log_debug("aux: %p",aux);
+    log_trace("aux ->");
 }
 

@@ -9,6 +9,7 @@ typedef struct Node {
 }Node;
 
 //definição do Tipo LinkedList: responsavel por armazenar o primeiro no da lista e sua quantidade de elementos
+//definição do Tipo LinkedList: responsavel por armazenar o primeiro no da lista e sua quantidade de elementos
 typedef struct LinkedList {
   Node *first;
   int size;
@@ -69,7 +70,7 @@ void* removePos(LinkedList *list, int pos);
 //remove um elemento da lista com base em um dado passado por referencia 
 bool removeData(LinkedList *list, void *data, compare equal);
 
-//descobre a posição de um elemento específico
+//recebe um dado e encontra sua posição dentro da lista
 int indexOf(LinkedList *list, void *data, compare equal);
 
 #endif
