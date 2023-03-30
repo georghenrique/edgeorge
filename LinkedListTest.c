@@ -13,7 +13,7 @@ bool compara(void *data1, void *data2) {
     log_debug("dado1: %p", d1);
     log_debug("dado2: %p", d2);
 
-    if(*d1 == *d2){
+    if(d1 == d2){
         log_info("Os dados são iguais:");
         log_debug("dado1: %d \n dado2: %d", d1, d2);
         log_trace("compara ->");    
@@ -107,14 +107,12 @@ int main(){
     log_info("chamada da funçao first");
     first(&lista);
 
-    log_info("chamada da funçao removePos");
-    removePos(&lista, 0);
-
-
-    log_info("chamada da funçao removePos");
-    removePos(&lista, 2);
+   
     
-    //removeData(&lista, 833, compara);
+    removeData(&lista, 13, compara);
+
+    removeData(&lista, 25, compara);
+
 
 
     return EXIT_SUCCESS;

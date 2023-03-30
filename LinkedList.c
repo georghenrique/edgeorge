@@ -400,56 +400,13 @@ void* removePos(LinkedList *list, int pos){
     return dataRemove;
 }
 
-/*bool removeData(LinkedList *list, void *data){
-    log_info("Entrando na função removeData");
-    log_trace("removeData <-");
-
-    Node *nodeRemove = NULL; //nó que será removido
-    log_debug("criação da variavel nodeRemove que vai receber o Nó a ser removido: %p", nodeRemove);
-    
-    if(compara(list->first->data, data)){
-        log_info("O dado a ser removido é o primeiro da lista!");
-        nodeRemove = list->first;
-        list->first = list->first->next; //segundo nó passa a ser o first
-        log_debug("nodeRemove recebe o Nó que será removido: %p", nodeRemove);
-        log_debug("list->first aponta para o proximo Nó da lista: %p", list->first);
-
-        free(nodeRemove->data);
-        free(nodeRemove);
-        list->size--;
-        log_debug("remoção do dado: %d", nodeRemove->data);
-        log_debug("remoção do nó: %p", nodeRemove);
-
-        log_debug("decrementação de list->size: %d", list->size);
-        log_trace("removeData ->");
-        return true;
-    }
-
-    else{
-        log_info("O dado a ser removido é o primeiro da lista!");
-        Node *aux = list->first;
-        while(aux->next!=NULL && !compara(aux->next->data,data))
-            aux=aux->next; //avançando até encontrar o dado ou chegar ao final da lista
-        if (aux->next!=NULL) { //se encontrado o nó
-            Node *nodeRemove = aux->next; //nó a ser removido é o próximo
-            aux->next = nodeRemove->next; //removido da lista
-            free(nodeRemove->data); //removido o dado
-            free(nodeRemove); //removido o nó
-            list->size--;
-            return true;
-        }else{
-            return false; //nó não foi encontrado
-        }
-    }
-}*/
-
 bool removeData(LinkedList *list, void *data, compare equal) {
     log_info("Entrando na funçao removeData");
     log_trace("removeData <-");
 
     if(isEmpty(list)==true){
         log_error("**Erro: a lista está vazia!");
-        log_trace("removeData <-");
+        log_trace("removeData ->");
         return -1;
     }
 
@@ -460,14 +417,16 @@ bool removeData(LinkedList *list, void *data, compare equal) {
         list->first = list->first->next;
         log_debug("nodeRemove recebe o endereço do primeiro Nó da lista: %p", nodeRemove);
         log_debug("variável list->first recebe list->first->next, fazendo o com que o segundo elemento se torne o primeiro %p", list->first);
+        log_debug("dado a ser removido: %d", nodeRemove->data);
 
+        nodeRemove->data=NULL; //só funciona com essa linha
         free(nodeRemove->data);
         free(nodeRemove);
         log_debug("free em nodeRemove->data: %p", nodeRemove->data);
         log_debug("free em nodeRemove: %p", nodeRemove);
         list->size--;
         log_debug("decrementaçao de list->size: %d", list->size);
-        log_trace("removeData <-");
+        log_trace("removeData ->");
         return true;
     }
     else {
@@ -487,18 +446,22 @@ bool removeData(LinkedList *list, void *data, compare equal) {
             aux->next = nodeRemove->next;
             log_debug("nodeRemove recebe o endereço aux->next: %p", nodeRemove);
             log_debug("aux->next recebe o endereço nodeRemove->next: %p", aux->next);
+            log_debug("dado a ser removido: %d", nodeRemove->data);
+            
+
+            nodeRemove->data=NULL; //só funciona com essa linha
             free(nodeRemove->data);
             free(nodeRemove);
             log_debug("free em nodeRemove->data: %p", nodeRemove->data);
             log_debug("free em nodeRemove: %p", nodeRemove);
             list->size--;
             log_debug("decrementaçao de list->size: %d", list->size);
-            log_trace("removeData <-");
+            log_trace("removeData ->");
             return true;
         }
         else{
             log_error("**Erro: Ñ foi posssivel remover o dado");
-            log_trace("removeData <-");
+            log_trace("removeData ->");
             return false;
         }
     }
