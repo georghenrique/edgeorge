@@ -3,6 +3,9 @@
 #include "LinkedList.h"
 #include "log.h"
 
+///////////////////////////////
+//ARRUMAR TODAS AS CHAMADAS COM PONTEIRO VOID
+
 bool compara(void *data1, void *data2) {
     log_info("Comparando se os dados são iguais:");
     log_trace("compara <-");

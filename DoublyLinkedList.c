@@ -3,10 +3,6 @@
 #include "DoublyLinkedList.h"
 #include "log.h"
 
-void impressao(void *data) {
-    int *dado = (int*)data;
-    printf("%d - ",*dado);
-}
 
 void init(DoublyLinkedList *list){
     log_info("inicializando a lista");
@@ -141,7 +137,7 @@ void* pop(DoublyLinkedList *list) {
    
    if(isEmpty(list)==true){
         log_error("**Erro: a lista está vazia!");
-        return -1;
+        return false;
     }  
     log_trace("pop ->");
     return dequeue(list);
@@ -301,34 +297,42 @@ void* removePos(DoublyLinkedList *list, int pos) {
     return dataRemove;
 }
 
-int removeData(DoublyLinkedList *list, void *data, compare equal) {
+bool removeData(DoublyLinkedList *list, void *data, compare equal) {
     log_info("Entrando na funçao removeData");
     log_trace("removeData <-");
 
     if(isEmpty(list)==true){
         log_error("**Erro: a lista está vazia!");
         log_trace("removeData ->");
-        return -1;
+        return false;
     }
 
     Node *nodeRemove = list->first->next;
+    log_debug("nodeRemove recebe o endereço do primeiro No da lista: %p", nodeRemove);
 
     log_trace("while <-");
     while(nodeRemove!=list->first && !equal(nodeRemove->data,data)){
         nodeRemove=nodeRemove->next;
-
+        log_debug("nodeRemove recebe nodeRemove->next: %p", nodeRemove);
     }
     log_trace("while ->");
 
-    if (nodeRemove!=list->first) {
+    if (nodeRemove!=list->first){
         nodeRemove->previous->next = nodeRemove->next;
         nodeRemove->next->previous = nodeRemove->previous;
         free(nodeRemove->data);
         free(nodeRemove);
+        log_debug("free em nodeRemove->data: %p", nodeRemove->data);
+        log_debug("free em nodeRemove: %p", nodeRemove);
         list->size--;
-        return 1;
-    } else {
-        return 0;
+        log_debug("decrementaçao de list->size: %d", list->size);
+        log_trace("removeData ->");
+        return true;
+    }
+    else{
+        log_error("**Erro: Ñ foi posssivel remover o dado");
+        log_trace("removeData ->");
+        return false;
     }
 }
 
@@ -378,7 +382,6 @@ void show(DoublyLinkedList *list, printNode print) {
         aux=aux->next;
         log_debug("aux->list->next: %p",aux);
     }
-    log_debug("aux: %p",aux);
     log_trace("aux ->");
 }
 
