@@ -47,18 +47,21 @@ int main(){
    log_info("chamada da funçao init");
    init(&list);
 
-   //isEmpty(&list);
 
-   //enqueue(&list, 12);
    int *aux = (int *)malloc(sizeof(int));
     *aux=1;
+
+    log_info("chamada da funçao enqueue");
     enqueue(&list, aux);
 
-   //first(&list);
+    log_info("chamada da funçao first");
+    first(&list);
 
+    log_info("chamada da funçao show");
     show(&list, impressao);
 
-   //removeData( &list, aux, compara);
+    log_info("chamada da funçao removeDate");
+    removeData( &list, aux, compara);
 
 
 

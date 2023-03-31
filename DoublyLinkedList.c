@@ -19,7 +19,7 @@ void init(DoublyLinkedList *list){
     log_debug("trashNode->next: %p", trashNode->next);  
     log_debug("list->first: %p", list->first);  
     log_debug("list->size: %d", list->size);  
-    log_trace("init <-");
+    log_trace("init ->\n");
 }
 
 int enqueue(DoublyLinkedList *list, void *data){
@@ -32,6 +32,7 @@ int enqueue(DoublyLinkedList *list, void *data){
         log_info("teste para ver se o Nó foi criado");
         log_error("**Erro: ao criar o Nó!");
         log_debug("newNode: %p", newNode);
+        log_trace("enqueue -> \n");
         return -1;
     }
 
@@ -40,15 +41,13 @@ int enqueue(DoublyLinkedList *list, void *data){
     log_debug("newNode->data: %d", newNode->data);
     log_debug("newNode->next: %p", newNode->next);
 
-
-
     newNode->previous = list->first->previous;
     list->first->previous->next = newNode;
     list->first->previous = newNode;
     list->size++;
     
     log_debug("incrementaçao de list->size: %d", list->size);
-    log_trace("enqueue ->");
+    log_trace("enqueue -> \n");
     return 1;
 }
 
@@ -58,9 +57,9 @@ void* dequeue(DoublyLinkedList *list) {
 
     if (isEmpty(list)== true) {
         log_error("ERRO** A lista está vazia!");
+        log_trace("dequeue -> \n");
         return NULL;
     }
-
 
     Node *trash = list->first;
     Node *first = list->first->next;
@@ -73,23 +72,23 @@ void* dequeue(DoublyLinkedList *list) {
     free(first);
     list->size--;
     log_debug("decrementaçao de list->size: %d", list->size);
-    log_trace("dequeue ->");
+    log_trace("dequeue -> \n");
     return data;
 }
 
 void* first(DoublyLinkedList *list) {
     log_info("verificando o primeiro dado da lista:");
-    log_trace("first ->");
+    log_trace("first <-");
 
     if(isEmpty(list) == true){
         log_error("ERRO** A lista esta vazia !!");
         log_debug("lista: %p", list->first);
-        log_trace("first <-");
+        log_trace("first -> \n");
         return NULL;
     }
     else{
         log_debug("valor contido na lista: %d", list->first->next->data);
-        log_trace("first <-");
+        log_trace("first -> \n");
     } 
     return list->first->next->data;
 }
@@ -100,8 +99,10 @@ void* last(DoublyLinkedList *list) {
 
     if (isEmpty(list)== true) {
         log_error("ERRO** A lista está vazia!");
+        log_trace("last -> \n");
         return NULL;
     }
+    
     log_debug("o ultimo elemento da lista: %d", list->first->previous->data);
     log_trace("last <-");
     return list->first->previous->data;
