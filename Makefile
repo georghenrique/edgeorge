@@ -69,3 +69,17 @@ doublylinkedlist:
 	@echo ======================================================
 	@echo
 	./doublylinkedlist
+
+hash:
+	@echo
+	@echo ======================================================
+	@echo    				  HASH
+	@echo ======================================================
+	@echo Compilando o programa hash
+	gcc --std=c99 -DLOG_USE_COLOR log.h log.c Hash.h Hash.c HashTest.c -o hash
+	@echo Tornando o arquivo executável
+	chmod +x hash
+	@echo Executando o programa hash
+	@echo ======================================================
+	@echo
+	./hash	
