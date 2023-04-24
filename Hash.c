@@ -3,6 +3,7 @@
 #include <string.h>
 #include "Hash.h"
 #include "log.h"
+#include "DoublyLinkedList.c" //para usar as implementaçoes de doublyLinkedLista
 
 
 
@@ -14,13 +15,15 @@ void initHash(HashStruct *hashStruct) {
         log_trace("for <-");
         log_info("chamando init de DoublyLinkedList para inicializar cada lista do vetor");
         init(&(hashStruct->hashes[i]));
+        log_debug("a posição %d do vetor foi inicializada", i);
     }
     log_trace("for ->");
 
     hashStruct->size = 0;
+    log_debug("hashStruct->size: %d", hashStruct->size); 
     log_trace("initHash ->\n");
-
 }
+
 
 int hash(char *key) {
     log_info("add um hash");
@@ -79,11 +82,13 @@ void* removeKey(HashStruct *hashStruct, char *key, compare equal) {
     return result;
 }
 
-/*void showHashStruct(HashStruct *hashStruct, printNode print) {
+void showHashStruct(HashStruct *hashStruct, printNode print) {
     printf("There are %d elements in the Hash\n\n",hashStruct->size);
     for (int i=0; i < MAX; i++) {
         printf("Hash %d has %d elements: ",i,hashStruct->hashes[i].size);
         show(&hashStruct->hashes[i],print);
         printf("\n");
     }
-}*/
+}
+*/
+

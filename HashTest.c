@@ -24,7 +24,8 @@ void printCliente(void *data) {
 int main() {
     HashStruct hashes;
     initHash(&hashes);
-    printf("%d\n",hash("joao.preti@cba.ifmt.edu.br"));
+
+    /*printf("%d\n",hash("joao.preti@cba.ifmt.edu.br"));
     Cliente *c = (Cliente *)malloc(sizeof(Cliente));
     strcpy(c->nome,"Joao Paulo") ;
     strcpy(c->email,"joao.preti@cba.ifmt.edu.br");
@@ -47,6 +48,6 @@ int main() {
     strcpy(c->nome,"Carla") ;
     strcpy(c->email,"carla@gmail.com.br");
     put(&hashes, c->email, c, comparaChaves);
-    //showHashStruct(&hashes, printCliente);
+    //showHashStruct(&hashes, printCliente);*/
     return 0;
 }
