@@ -26,15 +26,17 @@ void initHash(HashStruct *hashStruct) {
 
 
 int hash(char *key) {
-    log_info("add um hash");
+    log_info("calculo: hash");
     log_trace("hash <-");
     
     int sum = 0;
-    // percorremos todos os caracteres da string passada
+    log_debug("criação da variavel sum que guardará o valor ASCII da string %d", sum);
+
+    log_info("percorremos todos os caracteres da string passada");
     for (int i = 0; key[i]!=0; i++){
         log_trace("for <-");
-        //acumulamos os códigos ascii de cada letra com um peso
-        sum+=key[i]*(i+1);
+        log_info("acumulamos os códigos ascii de cada letra com um peso");
+        sum+=key[i]*(i+1);//ñ entendi o motivo de multiplicar o key por (i+1)
         log_debug("sum = sum + key[i]*(i+1): %d", sum);
 
     }
@@ -90,5 +92,5 @@ void showHashStruct(HashStruct *hashStruct, printNode print) {
         printf("\n");
     }
 }
-*/
+
 

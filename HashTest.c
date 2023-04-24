@@ -25,7 +25,14 @@ int main() {
     HashStruct hashes;
     initHash(&hashes);
 
-    /*printf("%d\n",hash("joao.preti@cba.ifmt.edu.br"));
+    printf("%d\n", hash("abc"));
+    printf("%d\n", hash("bc"));
+    printf("%d\n", hash("c"));
+    printf("%d\n", hash("ac"));
+    
+
+
+    /*
     Cliente *c = (Cliente *)malloc(sizeof(Cliente));
     strcpy(c->nome,"Joao Paulo") ;
     strcpy(c->email,"joao.preti@cba.ifmt.edu.br");
