@@ -24,7 +24,6 @@ void initHash(HashStruct *hashStruct) {
     log_trace("initHash ->\n");
 }
 
-
 int hash(char *key) {
     log_info("calculo: hash");
     log_trace("hash <-");
@@ -47,40 +46,91 @@ int hash(char *key) {
 }
 
 bool containsKey(HashStruct *hashStruct, char *key, compare equal) {
-    //calcula a posição
+    log_info("calcula a posição");
+    log_trace("containsKey <-");
+
+
     int hashValue = hash(key);
-    //busca na fila a posição da chave
+    log_debug("hasValue armazena a posição da chave fornecida: %d", hashValue);
+    
+    log_info("chamada de indexOF que buscará na DoublyLinkedList a posição da chave");
     int pos = indexOf(&hashStruct->hashes[hashValue], key, equal);
-    return (pos!=-1)?true:false;
+    
+    if(pos==-1){
+        log_error("**Erro: a Chave NÃO ESTÁ NA LISTA!");
+        log_trace("containsKey ->\n");
+        return false;
+    }
+    else{
+        log_debug("a chava ESTÁ NA LISTA, na posição: %d", pos);
+        log_trace("containsKey ->\n");
+        return true;
+    }
 }
 
 int put(HashStruct *hashStruct, char *key, void *data, compare equal) {
-    if (!containsKey(hashStruct, key, equal)) {
-        //adiciona na fila que está na posição devolvida pela função hash
+    log_info("Add um hash na lista");
+    log_trace("put <-");
+
+    log_info("teste: a chave Ñ está na Lista?");
+    if (containsKey(hashStruct, key, equal)==false) {
+        log_trace("If <-");
+        log_info("chamada de Enqueue que adicionará a chave na fila segundo a posição devolvida pela função hash");
         int res = enqueue(&hashStruct->hashes[hash(key)],data);
+        
         //incrementa a qtde de elementos baseado na quantidade inserida por enqueue
         hashStruct->size+=res;
+        log_debug("incrementaçao de hashStruct->size: %d", hashStruct->size);
+        log_trace("If ->");
+        log_trace("put -> \n");
         return res;
     }
+    
+    log_trace("put -> \n");
     return 0;
 }
 
 void* get(HashStruct *hashStruct, char *key, compare equal) {
-    // descobre em qual fila/lista está o dado
+    log_info("descobre em qual lista está um dado fornecido");
+    log_trace("get <-");
+
     int hashValue = hash(key);
+    log_debug("hasValue armazena a posição da chave fornecida: %d", hashValue);
+    
     //first é nó sentinela, começamos do segundo nó
     Node *aux = hashStruct->hashes[hashValue].first->next;
-    // procuramos o dado na lista
-    while(aux!=hashStruct->hashes[hashValue].first && !equal(aux->data, key))
+    log_debug("Criação de aux que recebe hashStruct->hashes[hashValue].first->next: %p", aux);
+    //log_info("aux recebeu o endereço de memória de hashStruct na posição da chave");
+    
+    log_info("Procurando o dado na lista");
+    while(aux!=hashStruct->hashes[hashValue].first && !equal(aux->data, key)){
+        log_trace("while <-");
         aux=aux->next;
+        log_debug("aux recebe aux->next: %p", aux);
+    }
+    log_trace("while ->");
+    log_trace("get -> \n");
     return aux->data;
 }
 
 void* removeKey(HashStruct *hashStruct, char *key, compare equal) {
+    log_info("Apaga uma chave da lista");
+    log_trace("removeKey <-");
+
     int hashValue = hash(key);
+    log_debug("hasValue armazena a posição da chave fornecida: %d", hashValue);
+
+    log_info("chamada de indexOF que buscará na DoublyLinkedList a posição da chave");
     int pos = indexOf(&hashStruct->hashes[hashValue], key, equal);
+    
     void* result = removePos(&hashStruct->hashes[hashValue], pos);
-    if (result!=NULL) hashStruct->size--;
+
+    if (result!=NULL){
+        hashStruct->size--;
+        log_debug("decrementaçao de hashStruct->size: %d", hashStruct->size);
+    }
+
+    log_trace("removeKey <- \n");
     return result;
 }
 
