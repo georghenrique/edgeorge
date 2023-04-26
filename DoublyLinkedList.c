@@ -8,18 +8,18 @@ void init(DoublyLinkedList *list){
     log_info("inicializando a lista");
     log_trace("init <-");
     Node *trashNode = (Node*)malloc(sizeof(Node));
-    log_debug("trashNode: %p",trashNode);
+    //log_debug("trashNode: %p",trashNode);
     trashNode->data=NULL;
     trashNode->previous=trashNode;
     trashNode->next=trashNode;
     list->first=trashNode;
     list->size=0;
-    log_debug("trashNode->data: %p", trashNode->data);
-    log_debug("trashNode->previous: %p", trashNode->previous);
-    log_debug("trashNode->next: %p", trashNode->next);  
-    log_debug("list->first: %p", list->first);  
-    log_debug("list->size: %d", list->size);  
-    log_trace("init ->\n");
+    //log_debug("trashNode->data: %p", trashNode->data);
+    //log_debug("trashNode->previous: %p", trashNode->previous);
+    //log_debug("trashNode->next: %p", trashNode->next);  
+    //log_debug("list->first: %p", list->first);  
+    //log_debug("list->size: %d", list->size);  
+    //log_trace("init ->\n");
 }
 
 int enqueue(DoublyLinkedList *list, void *data){
@@ -38,8 +38,8 @@ int enqueue(DoublyLinkedList *list, void *data){
 
     newNode->data = data;
     newNode->next = list->first;
-    log_debug("newNode->data: %d", newNode->data);
-    log_debug("newNode->next: %p", newNode->next);
+    //log_debug("newNode->data: %d", newNode->data);
+    //log_debug("newNode->next: %p", newNode->next);
 
     newNode->previous = list->first->previous;
     list->first->previous->next = newNode;
@@ -349,15 +349,15 @@ int indexOf(DoublyLinkedList *list,void *data,compare equal) {
     
     int count=0;
     Node *aux = list->first->next;
-    log_debug("VAR contadora é criada: %d", count);
-    log_debug("aux recebe o endereço do primeiro Nó da lista: %p", aux);
+    //log_debug("VAR contadora é criada: %d", count);
+    //log_debug("aux recebe o endereço do primeiro Nó da lista: %p", aux);
 
     log_trace("while <-");
     while(aux!=list->first && !equal(aux->data,data)) {
         aux=aux->next;
         count++;
-        log_debug("aux recebe o endereço do proximo Nó da lista: %p", aux);
-        log_debug("count é incrementado: %d", count);
+        //log_debug("aux recebe o endereço do proximo Nó da lista: %p", aux);
+        //log_debug("count é incrementado: %d", count);
     }
     log_trace("while ->");
     

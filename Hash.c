@@ -27,20 +27,22 @@ void initHash(HashStruct *hashStruct) {
 int hash(char *key) {
     log_info("calculo: hash");
     log_trace("hash <-");
+    log_debug("chave hash: %s", key);
     
     int sum = 0;
-    log_debug("criação da variavel sum que guardará o valor ASCII da string %d", sum);
+    log_debug("criação da variavel sum que guardará o valor ASCII da string: %d", sum);
 
     log_info("percorremos todos os caracteres da string passada");
     for (int i = 0; key[i]!=0; i++){
         log_trace("for <-");
-        log_info("acumulamos os códigos ascii de cada letra com um peso");
+        //log_info("acumulamos os códigos ascii de cada letra com um peso");
         sum+=key[i]*(i+1);//ñ entendi o motivo de multiplicar o key por (i+1)
-        log_debug("sum = sum + key[i]*(i+1): %d", sum);
+        //log_debug("sum = sum + key[i]*(i+1): %d", sum);
 
     }
     log_trace("for ->");
-    log_debug("MOD de sum: %d", sum%MAX);
+    log_debug("chave hash informada: %s", key);
+    log_debug("MOD de key: %d", sum%MAX);
     log_trace("hash ->\n");
     return sum%MAX; //retorna o resto da divisão
 }
