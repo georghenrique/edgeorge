@@ -25,9 +25,9 @@ void initHash(HashStruct *hashStruct) {
 }
 
 int hash(char *key) {
-    log_info("calculo: hash");
+    //log_info("calculo: hash");
     log_trace("hash <-");
-    log_debug("chave hash: %s", key);
+    //log_debug("chave hash: %s", key);
     
     int sum = 0;
     //log_debug("criação da variavel sum que guardará o valor ASCII da string: %d", sum);
@@ -42,8 +42,8 @@ int hash(char *key) {
     }
     //log_trace("for ->");
     //log_debug("chave hash informada: %s", key);
-    log_debug("MOD de key: %d", sum%MAX);
-    log_trace("hash ->\n");
+    log_debug("MOD de %s: %d", key, sum%MAX);
+    log_trace("hash ->");
     return sum%MAX; //retorna o resto da divisão
 }
 
@@ -53,19 +53,19 @@ bool containsKey(HashStruct *hashStruct, char *key, compare equal) {
 
 
     int hashValue = hash(key);
-    log_debug("hasValue armazena a posição da chave fornecida: %d", hashValue);
+    //log_debug("hasValue armazena a posição da chave fornecida: %d", hashValue);
     
-    log_info("chamada de indexOF que buscará na DoublyLinkedList a posição da chave");
+    //log_info("chamada de indexOF que buscará na DoublyLinkedList a posição da chave");
     int pos = indexOf(&hashStruct->hashes[hashValue], key, equal);
     
     if(pos==-1){
         log_error("**Erro: a Chave NÃO ESTÁ NA LISTA!");
-        log_trace("containsKey ->\n");
+        log_trace("containsKey ->");
         return false;
     }
     else{
-        log_debug("a chava ESTÁ NA LISTA, na posição: %d", pos);
-        log_trace("containsKey ->\n");
+        log_debug("a chave ESTÁ NA LISTA, na posição: %d", pos);
+        log_trace("containsKey ->");
         return true;
     }
 }
@@ -74,7 +74,7 @@ int put(HashStruct *hashStruct, char *key, void *data, compare equal) {
     log_info("Add um hash na lista");
     log_trace("put <-");
 
-    log_info("teste: a chave Ñ está na Lista?");
+    log_info("Chamada de containsKey para testar se chave Ñ está na Lista");
     if (containsKey(hashStruct, key, equal)==false) {
         log_trace("If <-");
         log_info("chamada de Enqueue que adicionará a chave na fila segundo a posição devolvida pela função hash");
