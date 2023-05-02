@@ -3,7 +3,7 @@
 #include <string.h>
 #include "Hash.h"
 #include "log.h"
-#define MAX 30
+#define MAX 10
 
 bool comparaChaves(void *data1, void *data2) {
     char *d1 = (char*)data1;
@@ -54,7 +54,7 @@ int main() {
             log_debug("teste: %d", teste);
 
     log_info("aux recebeu o endereco de memoria de HashStruct na 1 posicao");
-    while((aux != a->hashes[i].first)==true || i<MAX){
+    while((aux != a->hashes[i].first)==true && i<MAX){
         log_trace("while <-");
         if(cont<a->hashes[i].size){
             log_debug("size na posicao %d, valor de cont: %d", i, a->hashes[i].size);
@@ -65,8 +65,10 @@ int main() {
         }
         log_trace("if ->");
         aux = a->hashes[i].first->next;
+        log_trace("aux = receber next");
         i++;
     }
+
     log_trace("while ->");
 
     log_debug("maior colisao encontrada: %d", cont);
