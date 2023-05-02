@@ -9,7 +9,7 @@ bool comparaChaves(void *data1, void *data2) {
     char *d1 = (char*)data1;
     char *d2 = (char*)data2;
 
-     if(strcmp(d1,d2)==0){
+     /*if(strcmp(d1,d2)==0){
         log_debug("Os dados são iguais! String1: %s, String2: %s", d1, d2);
         return true;
 
@@ -17,8 +17,8 @@ bool comparaChaves(void *data1, void *data2) {
     else{
         log_debug("Os dados NÃO são iguais! String1: %s, String2: %s", d1, d2);
         return false;
-    }
-    //return strcmp(d1,d2)==0?:false;
+    }*/
+    return strcmp(d1,d2)==0?:false;
 }
 //typedef char WORD[MAX];
 
@@ -54,7 +54,7 @@ int main() {
             log_debug("teste: %d", teste);
 
     log_info("aux recebeu o endereco de memoria de HashStruct na 1 posicao");
-    while((aux != a->hashes[i].first)==true){
+    while((aux != a->hashes[i].first)==true || i<MAX){
         log_trace("while <-");
         if(cont<a->hashes[i].size){
             log_debug("size na posicao %d, valor de cont: %d", i, a->hashes[i].size);

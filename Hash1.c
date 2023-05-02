@@ -75,9 +75,9 @@ int put(HashStruct *hashStruct, char *key, void *data, compare equal) {
     log_trace("put <-");
 
     log_info("Chamada de containsKey para testar se chave Ñ está na Lista");
-    if (containsKey(hashStruct, key, equal)==false) {
+    /*if (containsKey(hashStruct, key, equal)==false) {
         log_trace("If <-");
-        log_info("chamada de Enqueue que adicionará a chave na fila segundo a posição devolvida pela função hash");
+        log_info("chamada de Enqueue que adicionará a chave na fila segundo a posição devolvida pela função hash");*/
         int res = enqueue(&hashStruct->hashes[hash(key)],data);
         
         //incrementa a qtde de elementos baseado na quantidade inserida por enqueue
@@ -86,7 +86,7 @@ int put(HashStruct *hashStruct, char *key, void *data, compare equal) {
         log_trace("If ->");
         log_trace("put -> \n");
         return res;
-    }
+    //}
     
     log_trace("put -> \n");
     return 0;

@@ -23,10 +23,10 @@ void init(DoublyLinkedList *list){
 }
 
 int enqueue(DoublyLinkedList *list, void *data){
-    log_info("Entrando na funçao enqueue");
+    //log_info("Entrando na funçao enqueue");
     log_trace("enqueue <-");
 
-    log_info("criado o novo Nó");
+    //log_info("criado o novo Nó");
     Node *newNode = (Node*)malloc(sizeof(Node));
         if(newNode == NULL){
         log_info("teste para ver se o Nó foi criado");
@@ -47,7 +47,7 @@ int enqueue(DoublyLinkedList *list, void *data){
     list->size++;
     
     log_debug("incrementaçao de list->size: %d", list->size);
-    log_trace("enqueue -> \n");
+    log_trace("enqueue ->");
     return 1;
 }
 
@@ -153,7 +153,7 @@ void* top(DoublyLinkedList *list) {
 }
 
 bool isEmpty(DoublyLinkedList *list) {
-    log_info("Verificando se a lista esta vazia");
+    //log_info("Verificando se a lista esta vazia");
     log_trace("isEmpty <-");
     
     if(list->size == 0){
@@ -338,7 +338,7 @@ bool removeData(DoublyLinkedList *list, void *data, compare equal) {
 }
 
 int indexOf(DoublyLinkedList *list,void *data,compare equal) {
-    log_info("Entrando na funçao indexOf");
+    //log_info("Entrando na funçao indexOf");
     log_trace("indexOf <-");
 
     if (isEmpty(list)==true){
@@ -352,14 +352,14 @@ int indexOf(DoublyLinkedList *list,void *data,compare equal) {
     //log_debug("VAR contadora é criada: %d", count);
     //log_debug("aux recebe o endereço do primeiro Nó da lista: %p", aux);
 
-    log_trace("while <-");
+    log_trace("whileOf <-");
     while(aux!=list->first && !equal(aux->data,data)) {
         aux=aux->next;
         count++;
         //log_debug("aux recebe o endereço do proximo Nó da lista: %p", aux);
         //log_debug("count é incrementado: %d", count);
     }
-    log_trace("while ->");
+    log_trace("whileOf ->");
     
     if(aux==list->first){
         log_error("**ERRO! posição do dado Ñ localizada");
