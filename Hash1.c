@@ -24,6 +24,7 @@ void initHash(HashStruct *hashStruct) {
     log_trace("initHash ->\n");
 }
 
+
 int hash(char *key) {
     //log_info("calculo: hash");
     log_trace("hash <-");
@@ -46,6 +47,14 @@ int hash(char *key) {
     log_trace("hash ->");
     return sum%MAX; //retorna o resto da divisão
 }
+/*
+int hash(char *key) {
+    unsigned long hash = 5381;
+    int c;
+    while ((c = *key++))
+        hash = c + (hash << 6) + (hash << 16) - hash;
+        return hash % MAX;
+}*/
 
 bool containsKey(HashStruct *hashStruct, char *key, compare equal) {
     log_info("calcula a posição");
@@ -144,5 +153,56 @@ void showHashStruct(HashStruct *hashStruct, printNode print) {
         printf("\n");
     }
 }
+
+void mapaEspalhamento(HashStruct *hashStruct){
+    log_info("Gerador de .PPM");
+    log_trace("mapaEspalhamento <-");
+    int var;//Variavel para receber o valor da cor do ppm
+    int dim_tab=raiz_Qd(); //Variavel que recebe a dimensão da matriz
+    FILE *imageFile; //criação do arquivo do tipo FILE
+    int larg=dim_tab;
+    int alt=dim_tab;
+    log_debug("a matriz tem a dimensão %d X %d", larg, alt);
+    log_info("Criação e abertura de um Arquivo imagem.ppm");
+    imageFile = fopen("imagem.ppm","wb");
+    if(imageFile==NULL){
+        log_error("ERRO** o arquivo Ñ foi aberto!");
+        return -3;
+    }
+    
+    log_info("Escreve o cabeçalho do arquivo");
+    //fprintf(imageFile, "P3\n%d %d\n255\n", larg, alt);
+    fprintf(imageFile,"P3\n");               // P3 tipo do PPM
+    fprintf(imageFile,"%d %d\n",larg,alt);   // dimensão da imagem
+    fprintf(imageFile,"255\n");              // Valor máximo da cor em RGB
+
+    for (int i=0; i < MAX; i++) {
+        //Caso a lista não esteja vazia, é escrito no PPM uma variação de cor conforme a quantidade de elementos.
+        if ((hashStruct->hashes[i].size)!= 0){  
+            if ((hashStruct->hashes[i].size) >= 1){
+                var=255/(hashStruct->hashes[i].size);
+                fprintf(imageFile,"0 %d 0\n",var);//Impressão da variação de cor.
+            }
+        }else//Caso a posição da hash esteja vazia, imprima a cor mais clara possível.
+            fprintf(imageFile,"241 255 162\n");
+    }
+    log_info("Arquivo PPM gerado com sucesso !!");
+    log_trace("mapaEspalhamento ->\n");
+    fclose(imageFile);
+}
+
+int raiz_Qd(){
+    log_info("Calculo de raiz");
+    log_trace("raiz_Qd <-");
+    int n;
+    float result = MAX;
+   
+    for (n = 0; n < 10; ++n)
+          result = result/2 + MAX/(2*result);
+    
+    log_trace("raiz_Qd ->");       
+    return(result);    
+}    
+
 
 
