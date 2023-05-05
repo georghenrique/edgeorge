@@ -6,7 +6,7 @@
 //#define MAX 10000 // tabela 100 x 100
 //#define MAX 4900 // tabela 70 x 70
 //#define MAX 3025 // tabela 55 x 55
-#define MAX 900   // tabela  30 x 30
+//#define MAX 900   // tabela  30 x 30
 
 
 

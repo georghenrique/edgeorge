@@ -21,6 +21,22 @@ bool comparaChaves(void *data1, void *data2) {
     return strcmp(d1,d2)==0?:false;
 }
 
+void imprimeColisoes(HashStruct *hashStruct) {
+    int cont, maior = 0;
+    
+    //Navega entre as hashes e mostrar quantos elementos cada hash tem
+    //printf("\n\t");
+    for (int i=0; i < MAX; i++) 
+        if ((hashStruct->hashes[i].size)>1){
+            //printf("%d\t",hashStruct->hashes[i].size);
+            cont++;
+            if(maior<hashStruct->hashes[i].size){
+                maior=maior+hashStruct->hashes[i].size;
+            }
+        }
+    log_debug("a maior colisão encontrada: %d", maior);    
+}      
+
 int main() {
     log_info("Criação da var hashes do tipo HashStruct");
     HashStruct has;
@@ -48,5 +64,8 @@ int main() {
     fclose(file);
 
     mapaEspalhamento(&has);
+
+    imprimeColisoes(&has);
+    
     return 0;
 }
