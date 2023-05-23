@@ -9,14 +9,12 @@ typedef struct TreeNode {
     struct TreeNode *right;
 } TreeNode;
 
-/*
-- O usuário da biblioteca deve fornecer uma função para comparação dos elementos
-*/
+
+//O usuário da biblioteca deve fornecer uma função para comparação dos elementos
 
 typedef int (*TreeComparator)(void *element1, void *element2);
-/*
-- O usuário da biblioteca deve fornecer uma função para impressão dos dados do TreeNode
-*/
+
+//O usuário da biblioteca deve fornecer uma função para impressão dos dados do TreeNode
 
 typedef void (*printNode)(void*);
 
@@ -50,19 +48,14 @@ int add(TreeNode **root, void *element, TreeComparator f);
 */
 int find(TreeNode *root, void *key, TreeComparator f, void **element);
 
-/*
-- Imprime os elementos na ordem Esquerda Raiz Direita
-*/
+//Imprime os elementos na ordem Esquerda Raiz Direita
 void in_order(TreeNode *root, printNode print);
 
-/*
-- Imprime os elementos Raiz Esquerda Direita
-*/
+
+//Imprime os elementos Raiz Esquerda Direita
 void pre_order(TreeNode *root, printNode print);
 
-/*
-- Imprime os elementos Esquerda Direita Raiz
-*/
+//Imprime os elementos Esquerda Direita Raiz
 void post_order(TreeNode *root, printNode print);
 
 /*

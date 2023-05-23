@@ -29,7 +29,6 @@ int enqueue(DoublyLinkedList *list, void *data){
     //log_info("criado o novo Nó");
     Node *newNode = (Node*)malloc(sizeof(Node));
         if(newNode == NULL){
-        log_info("teste para ver se o Nó foi criado");
         log_error("**Erro: ao criar o Nó!");
         log_debug("newNode: %p", newNode);
         log_trace("enqueue -> \n");
