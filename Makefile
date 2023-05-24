@@ -104,7 +104,7 @@ tree:
 	@echo    				  ARVORE BINARIA
 	@echo ======================================================
 	@echo Compilando o programa tree
-	gcc --std=c99 -DLOG_USE_COLOR log.h log.c BinarySearchTree.h BinarySearchTree.c -o tree
+	gcc --std=c99 -DLOG_USE_COLOR log.h log.c BinarySearchTree.h BinarySearchTree.c BinarySearchTreeTest.c -o tree
 	@echo Tornando o arquivo executável
 	chmod +x tree
 	@echo Executando o programa tree
